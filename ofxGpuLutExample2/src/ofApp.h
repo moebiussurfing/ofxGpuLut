@@ -30,6 +30,9 @@ public:
 	int lutIndex;
 	string description;
 	float thumbnailWidth, thumbnailHeight;
-
+	int numCols;
+		int numRows;
 	ofImage image;
+
+
 };
