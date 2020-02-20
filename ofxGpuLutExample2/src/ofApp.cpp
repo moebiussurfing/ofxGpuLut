@@ -16,9 +16,16 @@ void ofApp::setup() {
 
 	for (int i = 0; i < dirSize; i++)
 	{
-		auto paths = ofSplitString(dir.getPath(i), "LUT/");
-		auto names = ofSplitString(paths[1], ".png");
-		lutNames[i] = names[0];
+		string lutPath = dir.getPath(i);
+		ofStringReplace(lutPath, "LUT/", "");
+		ofStringReplace(lutPath, ".png", "");
+		//ofStringReplace(lutPath, "\/", "");//TODO: delete this char...
+		lutNames[i] = lutPath;
+
+		//auto paths = ofSplitString(dir.getPath(i), "LUT/");
+		//auto names = ofSplitString(paths[1], ".png");
+		//lutNames[i] = names[0];
+
 		luts[i].load(dir.getPath(i));
 
 		cout << "lutNames[i] :" << lutNames[i] << endl;
@@ -30,13 +37,13 @@ void ofApp::setup() {
 
 	//source image
 	//video.initGrabber(1920, 1080);
-	//image.load("img/background3.jpg");
-	image.load("img/BONUS.look.jpg");
+	image.load("img/background3.jpg");
+	//image.load("img/photo2.jpg");
 
 	isThumbnailView = true;
 	lutIndex = 0;
 
-	numCols = 4;
+	numCols = 7;
 	numRows = 7;
 	//thumbnailWidth = 1920 / (dirSize/ numCols);
  //   thumbnailHeight = 1080 / (dirSize / numRows);
@@ -50,8 +57,10 @@ void ofApp::update() {
 }
 
 //--------------------------------------------------------------
-void ofApp::draw() {
-	if (isThumbnailView) {
+void ofApp::draw() 
+{
+	if (isThumbnailView) 
+	{
 		for (int i = 0; i < luts.size(); i++)
 		{
 			//luts[i].begin();
@@ -68,11 +77,13 @@ void ofApp::draw() {
 			ofDrawBitmapStringHighlight(lutNames[i], thumbnailWidth * fmodf(i, 3) + 4, thumbnailHeight * floor(i / 3) + 14);
 		}
 	}
-	else {
+	else 
+	{
 		luts[lutIndex].begin();
 		//video.draw(0, 0, 1920, 1080);
 		image.draw(0, 0, 1920, 1080);
 		luts[lutIndex].end();
+
 		ofDrawBitmapStringHighlight(lutNames[lutIndex], 4, 14);
 	}
 
@@ -94,7 +105,7 @@ void ofApp::keyReleased(int key) {
 	case OF_KEY_RIGHT:
 		if (!isThumbnailView) {
 			lutIndex++;
-			lutIndex %= 9;
+			lutIndex %= luts.size();
 		}
 		break;
 
@@ -102,7 +113,7 @@ void ofApp::keyReleased(int key) {
 		if (!isThumbnailView) {
 			lutIndex--;
 			if (lutIndex < 0) {
-				lutIndex = 8;
+				lutIndex = luts.size()-1;
 			}
 		}
 		break;
