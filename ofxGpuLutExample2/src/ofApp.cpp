@@ -37,8 +37,9 @@ void ofApp::setup() {
 
 	//source image
 	//video.initGrabber(1920, 1080);
-	image.load("img/background3.jpg");
-	//image.load("img/photo2.jpg");
+	//image.load("img/background3.jpg");
+	//image.load("img/photo3.jpg");
+	image.load("img/photo4.jpg");
 
 	isThumbnailView = true;
 	lutIndex = 0;
