@@ -19,7 +19,7 @@ void ofApp::setup() {
 		string lutPath = dir.getPath(i);
 		ofStringReplace(lutPath, "LUT/", "");
 		ofStringReplace(lutPath, ".png", "");
-		//ofStringReplace(lutPath, "\/", "");//TODO: delete this char...
+		//ofStringReplace(lutPath, "\", "");//TODO: delete this char...
 		lutNames[i] = lutPath;
 
 		//auto paths = ofSplitString(dir.getPath(i), "LUT/");
@@ -39,15 +39,15 @@ void ofApp::setup() {
 	//video.initGrabber(1920, 1080);
 	//image.load("img/background3.jpg");
 	//image.load("img/photo3.jpg");
-	image.load("img/photo4.jpg");
+	image.load("img/photo5.jpg");
 
 	isThumbnailView = true;
 	lutIndex = 0;
 
-	numCols = 7;
-	numRows = 7;
+	numCols = 4;
+	numRows = 4;
 	//thumbnailWidth = 1920 / (dirSize/ numCols);
- //   thumbnailHeight = 1080 / (dirSize / numRows);
+	//thumbnailHeight = 1080 / (dirSize / numRows);
 	thumbnailWidth = 1920 / numCols;
 	thumbnailHeight = 1080 / numRows;
 }
@@ -64,18 +64,12 @@ void ofApp::draw()
 	{
 		for (int i = 0; i < luts.size(); i++)
 		{
-			//luts[i].begin();
-			//image.draw(thumbnailWidth * fmodf(i, numCols), thumbnailHeight * floor(i / numRows), thumbnailWidth, thumbnailHeight);
-			//luts[i].end();
-			//
-			//ofDrawBitmapStringHighlight(lutNames[i], thumbnailWidth * fmodf(i, numCols) + 4, thumbnailHeight * floor(i / numRows) + 14);
-
 			luts[i].begin();
 			//video.draw(thumbnailWidth * fmodf(i, 3), thumbnailHeight * floor(i / 3), thumbnailWidth, thumbnailHeight);
-			image.draw(thumbnailWidth * fmodf(i, 3), thumbnailHeight * floor(i / 3), thumbnailWidth, thumbnailHeight);
+			image.draw(thumbnailWidth * fmodf(i, numCols), thumbnailHeight * floor(i / numRows), thumbnailWidth, thumbnailHeight);
 			luts[i].end();
 
-			ofDrawBitmapStringHighlight(lutNames[i], thumbnailWidth * fmodf(i, 3) + 4, thumbnailHeight * floor(i / 3) + 14);
+			ofDrawBitmapStringHighlight(lutNames[i], thumbnailWidth * fmodf(i, numCols) + 4, thumbnailHeight * floor(i / numRows) + 14);
 		}
 	}
 	else 
