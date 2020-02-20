@@ -35,8 +35,9 @@ void ofApp::setup() {
 	description += "left key : previous filter\n";
 	description += "right key : next filter\n";
 
-	//source image
 	//video.initGrabber(1920, 1080);
+
+	//source image
 	//image.load("img/background3.jpg");
 	//image.load("img/photo3.jpg");
 	image.load("img/photo5.jpg");
@@ -75,8 +76,10 @@ void ofApp::draw()
 	else 
 	{
 		luts[lutIndex].begin();
+		
 		//video.draw(0, 0, 1920, 1080);
 		image.draw(0, 0, 1920, 1080);
+
 		luts[lutIndex].end();
 
 		ofDrawBitmapStringHighlight(lutNames[lutIndex], 4, 14);
